@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Mi Primer ViuJs</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    </head>
+    <body>
+        <!--VISTA-->
+        <div id="app">
+            <table border="1">
+                <tr> 
+                    <th>NOMBRE</th>
+                    <th>APELLIDO</th>
+                    <th>RUT</th>
+                    <th>FECHA</th>
+                    <th>EDAD</th>
+                </tr>
+                <tr v-for="campos of personas">
+                    <td>{{campos["nombre"]}}</td>
+                    <td>{{campos["apellido"]}}</td>
+                    <td>{{campos["rut"]}}</td>
+                    <td>{{campos["fecha"]}}</td>
+                    <td>{{campos["edad"]}}</td>
+                </tr>
+            </table>
+
+        </div>
+        <script>
+            const app =new Vue({
+                //modelo
+                el:'#app',
+                data:{
+                    personas:[]
+                   
+                },
+                created(){
+                    fetch('/assets/datos.json')
+                    .then(response => response.json())
+                    .then(json=>{
+                        for(dato of json){
+                            console.log(dato);
+                            this.personas.push(dato);
+                        }
+                        console.log(this.personas);   
+                    })
+                }
+            });
+        </script>
+    </body>
+</html>
